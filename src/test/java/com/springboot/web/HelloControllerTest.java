@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
