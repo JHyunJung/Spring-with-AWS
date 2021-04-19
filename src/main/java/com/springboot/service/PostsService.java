@@ -7,8 +7,7 @@ import com.springboot.web.dto.PostsSaveRequestDto;
 import com.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -28,7 +27,7 @@ public class PostsService {
         return id;
     }
 
-    @Transactional(rea˚dOnly = true)
+    @Transactional(readOnly = true)
     public PostsResponseDto findById(Long id) {
         Posts entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
 
