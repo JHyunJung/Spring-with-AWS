@@ -129,7 +129,7 @@ update 기능에서 DB에 쿼리를 날리지 않는다. Cuz JPA의 영속성 �
 * JPA Entity 클래스들이 BaseTimeEntity을 상속할 경우 필드들도 칼럼으로 인식하도록 한다.
 
 #### @EntityListeners(AuditingEntityListener.class)
-* BaseTimeEntity 클래스에 Auditing 기능을 포함시킨다.ㄲ
+* BaseTimeEntity 클래스에 Auditing 기능을 포함시킨다.
 
 Commit - Posts CRUD & Mustache View 업데이트
 ------------------------------------------
@@ -152,7 +152,7 @@ ex)
 * Mustache.js와 Mustache.java 2가지가 다 있어, 하나의 문법으로 클라이언트/서버 템플릿을 모두 사용 가능
 
 #### Return "view file name"
-* 컨트롤러에서 문자열을 반환할 때 앞의 경로와 뒤의 파일 확장자는 자동으로 지
+* 컨트롤러에서 문자열을 반환할 때 앞의 경로와 뒤의 파일 확장자는 자동으로 지정
 
 #### 부트스트랩
 * 외부 CDN을 사용
@@ -169,3 +169,30 @@ HTML은 위에서부터 코드가 실행되기 때문에 head가 다 실행되�
 * 타입 안정성이 보장
 * 국내 많은 회사에서 사용 중
 * 레퍼런스가 많음
+
+Commit - Security & Oauth 업데이트
+--------------------------------
+#### 소셜 로그인 사용
+* 서비스 구현 집중
+  - 회원 보안, 인증, 비밀 번호 등 필수 구현 안해도 됨
+#### 스프링 부트 1.5 vs 2.0
+* 1.5
+  - url주소를 모두 명시
+* 2.0
+  - client 인증 정보만 입력, enum으로 대체
+#### 구글 서비스 등록
+* [구글 클라우드 플랫폼](https://console.cloud.google.com/) 을 통해서 등록
+* 스프링 부트 2 버전의 시큐리티에서는 기본적으로 {도메인}/login/oauth2/code/{소셜서비스코드}로 리다이렉트 URL을 지원
+* 사용자가 별도로 리다이렉트 URL을 지원하는 Controller를 만들 필요가 없습니다. 시큐리티에서 이미 구현
+* AWS써버에 배포하게 되면 localhost 외에 추가로 주소를 추가
+* application-oauth.properties 파일 생성 후 클라이언트 ID & Pass 등록
+
+#### @Enumerated(EnumType.STRING)
+* JPA로 DB에 저장할 때 Enum값을 어떤 형태로 저장할지를 결정
+* 기본적으로는 int로 된 숫자가 저장
+* 숫자로 저장되면 DB로 확인할 때 그 값이 무슨 코드를 의미하는지 알 수가 없음
+* 그래서 문자열 (EnumType.STRING)로 저장될 수 있도록 선언
+
+#### compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+* 소셜 로그인 등 클라이언트 입장에서 소셜 기능 구현 시 필요한 의존성
+* spring-security-oauth2-client와 -jose를 기본으로 관리
